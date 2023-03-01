@@ -1,0 +1,42 @@
+import telegram
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+
+# Initialize bot
+bot = telegram.Bot(token='YOUR_API_TOKEN')
+
+# Define function to handle messages
+def search(bot, update):
+    # Get message text
+    message = update.message.text.lower()
+
+    # Check if message contains a keyword
+    if 'keyword1' in message:
+        # Respond to user with relevant information
+        bot.send_message(chat_id=update.message.chat_id, text='Here is some information related to keyword1.')
+    elif 'keyword2' in message:
+        # Respond to user with relevant information
+        bot.send_message(chat_id=update.message.chat_id, text='Here is some information related to keyword2.')
+    else:
+        # Respond to user with a generic message
+        bot.send_message(chat_id=update.message.chat_id, text='I am sorry, I could not find any information related to your query.')
+
+# Define main function
+def main():
+    # Initialize updater
+    updater = Updater(token='YOUR_API_TOKEN')
+
+    # Get dispatcher to register handlers
+    dispatcher = updater.dispatcher
+
+    # Register handler to handle text messages
+    dispatcher.add_handler(MessageHandler(Filters.text, search))
+
+    # Start the Bot
+    updater.start_polling()
+
+    # Run the bot until you press Ctrl-C
+    updater.idle()
+
+# Call main function
+if __name__ == '__main__':
+    main()
